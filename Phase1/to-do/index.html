@@ -10,15 +10,137 @@
 
 <body>
 
-    <div class="container">
-        <h1>My To-Do List</h1>
-        <div class="input-container">
-            <input type="text" id="task-input" placeholder="Enter a new task...">
-            <button id="add-btn">Add</button>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Advanced To-Do App</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <div class="app-container">
+            <aside class="left-sidebar">
+                <div class="section-title">Menu</div>
+                <ul class="nav-menu">
+                    <li><a href="#">🔍 Search</a></li>
+                </ul>
+
+                <div class="section-title">TASKS</div>
+                <ul class="nav-menu">
+                    <li class="nav-item">Upcoming<span>12</span></li>
+                    <li class="nav-item active">Today<span>5</span></li>
+                    <li class="nav-item">Calendar</li>
+                    <li class="nav-item">Sticky Wall</li>
+                </ul>
+
+                <div class="section-title">LISTS</div>
+                <ul class="nav-menu">
+                    <li class="nav-item list-item"><span class="color-box personal-color"></span>Personal<span>3</span>
+                    </li>
+                    <li class="nav-item list-item"><span class="color-box work-color"></span>Work<span>6</span></li>
+                    <li class="nav-item list-item"><span class="color-box list1-color"></span>List 1<span>3</span></li>
+                    <li><a href="#">+ Add New List</a></li>
+                </ul>
+
+                <div class="section-title">TAGS</div>
+                <ul class="nav-menu tags">
+                    <li class="tag">Tag 1</li>
+                    <li class="tag">Tag 2</li>
+                    <li><a href="#">+ Add Tag</a></li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <ul class="nav-menu">
+                    <li><a href="#">⚙️ Settings</a></li>
+                    <li><a href="#">➡️ Sign out</a></li>
+                </ul>
+            </aside>
+
+            <main class="main-content">
+                <header class="main-header">
+                    <h2>Today <span>5</span></h2>
+                </header>
+                <div class="tasks-list">
+                    <div class="task-item add-task-item">
+                        + Add New Task
+                    </div>
+                    <div class="task-item">
+                        Research content ideas
+                    </div>
+                    <div class="task-item">
+                        Create a database of guest authors
+                    </div>
+                    <div class="task-item active-task">
+                        Renew driver's license
+                        <div class="task-meta">
+                            <span>Due: 12-03-22</span>
+                            <span class="tag personal-tag">Personal</span>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        Consult accountant
+                        <div class="task-meta">
+                            <span class="tag list-tag">List 1</span>
+                            <span>3 Subtasks</span>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        Print business card
+                    </div>
+                </div>
+            </main>
+
+            <aside class="right-panel">
+                <div class="pro-badge">Pro</div>
+                <h3>Task:</h3>
+                <h4 id="task-title">Renew driver's license</h4>
+                <div class="task-details">
+                    <div class="detail-row">
+                        <label>Description</label>
+                        <textarea>Write a short description...</textarea>
+                    </div>
+                    <div class="detail-row">
+                        <label>List</label>
+                        <select>
+                            <option>Personal</option>
+                            <option>Work</option>
+                        </select>
+                    </div>
+                    <div class="detail-row">
+                        <label>Due date</label>
+                        <input type="date" value="2022-11-05">
+                    </div>
+                    <div class="detail-row tags-row">
+                        <label>Tags</label>
+                        <div class="tags-list">
+                            <span class="tag selected">Tag 1</span>
+                            <button class="add-tag-btn">+ Add Tag</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Subtasks:</h3>
+                <ul class="subtasks-list">
+                    <li>+ Add New Subtask</li>
+                    <li>Subtask</li>
+                </ul>
+
+                <div class="panel-actions">
+                    <button class="delete-task-btn">Delete Task</button>
+                    <button class="save-changes-btn">Save changes</button>
+                </div>
+            </aside>
         </div>
-        <ul id="task-list">
-        </ul>
-    </div>
+
+        <script src="script.js"></script>
+    </body>
+
+    </html>
     <script src="script.js"></script>
 </body>
 
