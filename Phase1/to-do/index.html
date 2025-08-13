@@ -1,133 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="../fontAwasome/css/all.min.css"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tasks — Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
 </head>
-
 <body>
+  <div class="app">
+    <!-- Sidebar (Left) -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">Menu</div>
+        <div class="search">
+          <input id="searchInput" type="text" placeholder="Search"/>
+        </div>
+      </div>
 
-    <div class="app-container">
-        <aside class="left-sidebar">
-            <div class="section-title">Menu</div>
-            <ul class="nav-menu">
-                <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search</a></li>
-            </ul>
+      <nav class="nav-section">
+        <div class="section-title">Tasks</div>
+        <button class="nav-item" data-filter="today">
+          <span>Upcoming</span>
+          <span class="badge" id="upcomingCount">0</span>
+        </button>
+        <button class="nav-item" data-filter="today-only">
+          <span>Today</span>
+          <span class="badge" id="todayCount">0</span>
+        </button>
+        <button class="nav-item" data-filter="calendar">
+          <span>Calendar</span>
+        </button>
+        <button class="nav-item" data-filter="sticky">
+          <span>Sticky Wall</span>
+        </button>
+      </nav>
 
-            <div class="section-title">TASKS</div>
-            <ul class="nav-menu">
-                <li class="nav-item">Upcoming<span>12</span></li>
-                <li class="nav-item active">Today<span>5</span></li>
-                <li class="nav-item">Calendar</li>
-                <li class="nav-item">Sticky Wall</li>
-            </ul>
+      <div class="nav-section">
+        <div class="section-title">Lists</div>
+        <div id="listsContainer" class="chips"></div>
+        <div class="chip add" id="addListBtn">+ Add New List</div>
+      </div>
 
-            <div class="section-title">LISTS</div>
-            <ul class="nav-menu">
-                <li class="nav-item list-item"><span class="color-box personal-color"></span>Personal<span>3</span>
-                </li>
-                <li class="nav-item list-item"><span class="color-box work-color"></span>Work<span>6</span></li>
-                <li class="nav-item list-item"><span class="color-box list1-color"></span>List 1<span>3</span></li>
-                <li><a href="#">+ Add New List</a></li>
-            </ul>
+      <div class="nav-section">
+        <div class="section-title">Tags</div>
+        <div id="tagsContainer" class="chips"></div>
+        <div class="chip add" id="addTagBtn">+ Add Tag</div>
+      </div>
 
-            <div class="section-title">TAGS</div>
-            <ul class="nav-menu tags">
-                <li class="tag">Tag 1</li>
-                <li class="tag">Tag 2</li>
-                <li><a href="#">+ Add Tag</a></li>
-            </ul>
+      <div class="sidebar-bottom">
+        <button class="link">Settings</button>
+        <button class="link">Sign out</button>
+      </div>
+    </aside>
 
-            <div class="divider"></div>
+    <!-- Task List (Middle) -->
+    <main class="main">
+      <header class="main-header">
+        <div class="title-group">
+          <h1 id="viewTitle">Today</h1>
+          <div class="count-badge" id="currentCount">0</div>
+        </div>
+        <button id="addTaskBtn" class="btn primary">+ Add New Task</button>
+      </header>
 
-            <ul class="nav-menu">
-                <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                <li><a href="#">➡️ Sign out</a></li>
-            </ul>
-        </aside>
+      <section id="taskList" class="task-list"></section>
+    </main>
 
-        <main class="main-content">
-            <header class="main-header">
-                <h2>Today <span>5</span></h2>
-            </header>
-            <div class="tasks-list">
-                <div class="task-item add-task-item">
-                    + Add New Task
-                </div>
-                <div class="task-item">
-                    Research content ideas
-                </div>
-                <div class="task-item">
-                    Create a database of guest authors
-                </div>
-                <div class="task-item active-task">
-                    Renew driver's license
-                    <div class="task-meta">
-                        <span>Due: 12-03-22</span>
-                        <span class="tag personal-tag">Personal</span>
-                    </div>
-                </div>
-                <div class="task-item">
-                    Consult accountant
-                    <div class="task-meta">
-                        <span class="tag list-tag">List 1</span>
-                        <span>3 Subtasks</span>
-                    </div>
-                </div>
-                <div class="task-item">
-                    Print business card
-                </div>
-            </div>
-        </main>
+    <!-- Details Panel (Right) -->
+    <section class="details" id="detailsPanel" aria-hidden="true">
+      <header class="details-header">
+        <div class="details-title">Task:</div>
+        <button id="closeDetails" class="icon-btn" aria-label="Close">&times;</button>
+      </header>
 
-        <aside class="right-panel">
-            <!-- <div class="pro-badge">Pro</div> -->
-            <h3>Task:</h3>
-            <h4 id="task-title">Renew driver's license</h4>
-            <div class="task-details">
-                <div class="detail-row">
-                    <label>Description</label>
-                    <textarea>Write a short description...</textarea>
-                </div>
-                <div class="detail-row">
-                    <label>List</label>
-                    <select>
-                        <option>Personal</option>
-                        <option>Work</option>
-                    </select>
-                </div>
-                <div class="detail-row">
-                    <label>Due date</label>
-                    <input type="date" value="2022-11-05">
-                </div>
-                <div class="detail-row tags-row">
-                    <label>Tags</label>
-                    <div class="tags-list">
-                        <span class="tag selected">Tag 1</span>
-                        <button class="add-tag-btn">+ Add Tag</button>
-                    </div>
-                </div>
-            </div>
+      <form id="taskForm" class="details-body">
+        <input type="hidden" id="taskId"/>
 
-            <h3>Subtasks:</h3>
-            <ul class="subtasks-list">
-                <li>+ Add New Subtask</li>
-                <li>Subtask</li>
-            </ul>
+        <label class="field">
+          <div class="label">Title</div>
+          <input id="title" type="text" placeholder="Task title" required />
+        </label>
 
-            <div class="panel-actions">
-                <button class="delete-task-btn">Delete Task</button>
-                <button class="save-changes-btn">Save changes</button>
-            </div>
-        </aside>
-    </div>
+        <label class="field">
+          <div class="label">Description</div>
+          <textarea id="description" rows="3" placeholder="Description"></textarea>
+        </label>
 
-    <script src="script.js"></script>
+        <div class="grid-2">
+          <label class="field">
+            <div class="label">List</div>
+            <select id="listSelect"></select>
+          </label>
+
+          <label class="field">
+            <div class="label">Due date</div>
+            <input id="dueDate" type="date"/>
+          </label>
+        </div>
+
+        <label class="field">
+          <div class="label">Tags</div>
+          <div id="tagsPicker" class="tag-picker"></div>
+        </label>
+
+        <div class="subtasks">
+          <div class="subtasks-title">Subtasks:</div>
+          <div id="subtasksContainer"></div>
+          <div class="subtasks-add">
+            <input id="newSubtaskInput" type="text" placeholder="Add new subtask"/>
+            <button type="button" id="addSubtaskBtn" class="btn">+ Add</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="deleteTaskBtn" class="btn danger">Delete Task</button>
+          <button type="submit" class="btn success">Save changes</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="./app.js"></script>
 </body>
-
 </html>
