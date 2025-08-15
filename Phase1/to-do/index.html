@@ -22,26 +22,39 @@
     <!-- Sidebar (Left) -->
     <aside class="sidebar">
       <div class="sidebar-top">
-        <div class="brand">Menu</div>
-        <div class="search">
-          <input id="searchInput" type="text" placeholder="Search" />
+        <div class="menu-top">
+          <div class="menu">Menu</div>
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="search-box">
+          <input id="search-input" type="text" placeholder="Search" />
+          <i class="fa fa-search search-icon"></i>
         </div>
       </div>
 
-      <nav class="nav-section">
+      <nav class="nav-section1">
         <div class="section-title">Tasks</div>
         <button class="nav-item" data-filter="today">
-          <span>Upcoming</span>
-          <span class="badge" id="upcomingCount">0</span>
+          <i class="fa-solid fa-arrows-turn-right nav-icon "></i>
+          <div class="nav-item-text">
+            <span>Upcoming</span>
+            <span class="badge" id="upcomingCount">0</span>
+          </div>
         </button>
         <button class="nav-item" data-filter="today-only">
-          <span>Today</span>
-          <span class="badge" id="todayCount">0</span>
+          <i class="fa-solid fa-list-check nav-icon"></i>
+          <div class="nav-item-text">
+            <span>Today</span>
+            <span class="badge" id="todayCount">0</span>
+          </div>
         </button>
         <button class="nav-item" data-filter="calendar">
+          <i class="fa-solid fa-calendar-days nav-icon"></i>
           <span>Calendar</span>
         </button>
         <button class="nav-item" data-filter="sticky">
+          <i class="fa-solid fa-note-sticky nav-icon"></i>
           <span>Sticky Wall</span>
         </button>
 
@@ -59,8 +72,8 @@
         </div>
       </nav>
       <div class="sidebar-bottom">
-        <button class="link">Settings</button>
-        <button class="link">Sign out</button>
+        <button class="link"><i class="fa-solid fa-sliders"></i>Settings</button>
+        <button class="link"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign out</button>
       </div>
     </aside>
 
