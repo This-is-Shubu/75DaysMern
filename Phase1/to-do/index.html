@@ -19,8 +19,11 @@
 
 <body>
   <div class="app">
+
     <!-- Sidebar (Left) -->
     <aside class="sidebar">
+
+      <!-- sidebar-top -->
       <div class="sidebar-top">
         <div class="menu-top">
           <div class="menu">Menu</div>
@@ -33,7 +36,8 @@
         </div>
       </div>
 
-      <nav class="nav-section1">
+      <!-- sidebar-tasks -->
+      <nav class="nav-section">
         <div class="section-title">Tasks</div>
         <button class="nav-item" data-filter="today">
           <i class="fa-solid fa-arrows-turn-right nav-icon "></i>
@@ -58,24 +62,31 @@
           <span>Sticky Wall</span>
         </button>
 
-
+        <!-- sidebar-lists -->
         <div class="nav-section">
           <div class="section-title">Lists</div>
           <div id="listsContainer" class="chips"></div>
           <div class="chip add" id="addListBtn">+ Add New List</div>
         </div>
 
+        <!-- sidebar-tags -->
         <div class="nav-section">
           <div class="section-title">Tags</div>
           <div id="tagsContainer" class="chips"></div>
           <div class="chip add" id="addTagBtn">+ Add Tag</div>
         </div>
       </nav>
+
+      <!-- sidebar-bottom -->
       <div class="sidebar-bottom">
-        <button class="link"><i class="fa-solid fa-sliders"></i>Settings</button>
-        <button class="link"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign out</button>
+        <button class="link">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Settings</span></button>
+        <button class="link"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Sign out</span></button>
       </div>
     </aside>
+
+
 
     <!-- Task List (Middle) -->
     <main class="main">

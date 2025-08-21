@@ -13,10 +13,10 @@ let activeFilter = { type: "today-only", value: null }; // default view
 
 // ----- Utilities -----
 const uid = () => Math.random().toString(36).slice(2, 10);
-const todayISO = () => new Date().toISOString().slice(0,10);
+const todayISO = () => new Date().toISOString().slice(0, 10);
 const inFuture = (date) => new Date(date) > new Date(todayISO());
 const isToday = (date) => date === todayISO();
-const fmt = (d) => new Date(d).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit'});
+const fmt = (d) => new Date(d).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' });
 
 function load() {
   tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
@@ -26,9 +26,9 @@ function load() {
   if (tasks.length === 0) {
     // Seed sample tasks
     tasks = [
-      { id: uid(), title:"Research content ideas", description:"", list:"Work", dueDate: todayISO(), tags:["Tag 1"], subtasks:[], completed:false, sticky:false },
-      { id: uid(), title:"Renew driver's license", description:"", list:"Personal", dueDate: todayISO(), tags:["Tag 2"], subtasks:[{id:uid(), text:"Find docs", completed:false}], completed:false, sticky:false },
-      { id: uid(), title:"Print business card", description:"", list:"Work", dueDate: "2025-12-31", tags:["Tag 3"], subtasks:[], completed:false, sticky:false },
+      { id: uid(), title: "Research content ideas", description: "", list: "Work", dueDate: todayISO(), tags: ["Tag 1"], subtasks: [], completed: false, sticky: false },
+      { id: uid(), title: "Renew driver's license", description: "", list: "Personal", dueDate: todayISO(), tags: ["Tag 2"], subtasks: [{ id: uid(), text: "Find docs", completed: false }], completed: false, sticky: false },
+      { id: uid(), title: "Print business card", description: "", list: "Work", dueDate: "2025-12-31", tags: ["Tag 3"], subtasks: [], completed: false, sticky: false },
     ];
     save();
   }
@@ -61,7 +61,7 @@ function renderSidebar() {
     const chip = document.createElement("div");
     chip.className = "chip";
     chip.textContent = `${list} (${count})`;
-    chip.addEventListener("click", () => setFilter({ type:"list", value:list }));
+    chip.addEventListener("click", () => setFilter({ type: "list", value: list }));
     listsContainer.appendChild(chip);
   });
 
@@ -73,8 +73,8 @@ function renderSidebar() {
     const chip = document.createElement("div");
     chip.className = "chip";
     chip.textContent = `${tag} (${count})`;
-    chip.style.background = ["#eef2ff","#e0f2fe","#fef3c7","#fce7f3"][idx % 4];
-    chip.addEventListener("click", () => setFilter({ type:"tag", value:tag }));
+    chip.style.background = ["#eef2ff", "#e0f2fe", "#fef3c7", "#fce7f3"][idx % 4];
+    chip.addEventListener("click", () => setFilter({ type: "tag", value: tag }));
     tagsContainer.appendChild(chip);
   });
 }
@@ -86,10 +86,10 @@ function renderTaskList() {
   const filtered = getFilteredTasks();
   $("#currentCount").textContent = filtered.length;
   const viewTitle = {
-    "today-only":"Today",
-    "today":"Upcoming",
-    "calendar":"Calendar",
-    "sticky":"Sticky Wall",
+    "today-only": "Today",
+    "today": "Upcoming",
+    "calendar": "Calendar",
+    "sticky": "Sticky Wall",
     "list": activeFilter.value || "List",
     "tag": `#${activeFilter.value}`
   }[activeFilter.type] || "Tasks";
@@ -113,7 +113,7 @@ function renderTaskList() {
     });
   } else {
     filtered
-      .sort((a,b) => (a.dueDate||"9999") > (b.dueDate||"9999") ? 1 : -1)
+      .sort((a, b) => (a.dueDate || "9999") > (b.dueDate || "9999") ? 1 : -1)
       .forEach(t => container.appendChild(taskRow(t)));
   }
 }
@@ -123,14 +123,14 @@ function taskRow(task) {
   el.className = "task";
   el.innerHTML = `
     <div class="task-left">
-      <input type="checkbox" ${task.completed ? "checked": ""} data-role="complete">
+      <input type="checkbox" ${task.completed ? "checked" : ""} data-role="complete">
       <div>
         <div class="task-title">${task.title}</div>
         <div class="task-meta">
           ${task.dueDate ? `<span class="meta-pill">${fmt(task.dueDate)}</span>` : ""}
           ${task.list ? `<span class="meta-pill">${task.list}</span>` : ""}
-          ${task.tags?.map((tg,i)=>`<span class="meta-pill tag" data-color="${(i%3)+1}">${tg}</span>`).join("") || ""}
-          ${task.subtasks?.length ? `<span class="meta-pill">${task.subtasks.filter(s=>s.completed).length}/${task.subtasks.length} subtasks</span>`:""}
+          ${task.tags?.map((tg, i) => `<span class="meta-pill tag" data-color="${(i % 3) + 1}">${tg}</span>`).join("") || ""}
+          ${task.subtasks?.length ? `<span class="meta-pill">${task.subtasks.filter(s => s.completed).length}/${task.subtasks.length} subtasks</span>` : ""}
         </div>
       </div>
     </div>
@@ -149,7 +149,7 @@ function taskRow(task) {
   $(".btn", el).addEventListener("click", () => openDetails(task.id));
 
   // Click anywhere also edit
-  el.addEventListener("click", (e)=>{
+  el.addEventListener("click", (e) => {
     if (e.target.closest(".btn") || e.target.type === "checkbox") return;
     openDetails(task.id);
   });
@@ -160,7 +160,7 @@ function taskRow(task) {
 function getFilteredTasks() {
   const q = $("#searchInput").value?.toLowerCase() || "";
   let arr = tasks.filter(t => t.title.toLowerCase().includes(q) || t.description.toLowerCase().includes(q));
-  switch(activeFilter.type){
+  switch (activeFilter.type) {
     case "today-only":
       arr = arr.filter(t => isToday(t.dueDate) && !t.completed);
       break;
@@ -183,25 +183,25 @@ function getFilteredTasks() {
   return arr;
 }
 
-function setFilter(f){
+function setFilter(f) {
   activeFilter = f;
   renderTaskList();
 }
 
 // ----- Details panel -----
-function renderDetailsVisibility(show){
+function renderDetailsVisibility(show) {
   const panel = $("#detailsPanel");
-  panel.setAttribute("aria-hidden", show ? "false":"true");
+  panel.setAttribute("aria-hidden", show ? "false" : "true");
   if (!show) $("#taskForm").reset();
 }
 
-function openDetails(id){
+function openDetails(id) {
   const t = tasks.find(x => x.id === id);
   populateForm(t);
   renderDetailsVisibility(true);
 }
 
-function populateForm(task){
+function populateForm(task) {
   $("#taskId").value = task?.id || "";
   $("#title").value = task?.title || "";
   $("#description").value = task?.description || "";
@@ -220,7 +220,7 @@ function populateForm(task){
     pill.className = "tag-pill";
     pill.textContent = tg;
     if (task?.tags?.includes(tg)) pill.classList.add("active");
-    pill.addEventListener("click", ()=>{
+    pill.addEventListener("click", () => {
       pill.classList.toggle("active");
     });
     tp.appendChild(pill);
@@ -232,11 +232,11 @@ function populateForm(task){
   (task?.subtasks || []).forEach(sub => cont.appendChild(subtaskRow(sub)));
 }
 
-function subtaskRow(sub){
+function subtaskRow(sub) {
   const row = document.createElement("div");
   row.className = "subtask";
   row.innerHTML = `
-    <input type="checkbox" ${sub.completed ? "checked": ""}>
+    <input type="checkbox" ${sub.completed ? "checked" : ""}>
     <input type="text" value="${sub.text}" placeholder="Subtask">
     <button class="icon-btn" title="Remove">&times;</button>
   `;
@@ -244,8 +244,8 @@ function subtaskRow(sub){
   $("input[type='text']", row).addEventListener("input", e => sub.text = e.target.value);
   $(".icon-btn", row).addEventListener("click", () => {
     const formId = $("#taskId").value;
-    if (formId){
-      const t = tasks.find(x=>x.id===formId);
+    if (formId) {
+      const t = tasks.find(x => x.id === formId);
       t.subtasks = t.subtasks.filter(s => s.id !== sub.id);
     }
     row.remove();
@@ -254,22 +254,22 @@ function subtaskRow(sub){
 }
 
 // ----- Event listeners -----
-function initEvents(){
+function initEvents() {
   // Sidebar filters
   $$(".nav-item").forEach(btn => {
     btn.addEventListener("click", () => {
       const f = btn.dataset.filter;
-      if (f === "today") setFilter({type:"today"});
-      else if (f === "today-only") setFilter({type:"today-only"});
-      else if (f === "calendar") setFilter({type:"calendar"});
-      else if (f === "sticky") setFilter({type:"sticky"});
+      if (f === "today") setFilter({ type: "today" });
+      else if (f === "today-only") setFilter({ type: "today-only" });
+      else if (f === "calendar") setFilter({ type: "calendar" });
+      else if (f === "sticky") setFilter({ type: "sticky" });
       renderTaskList();
     });
   });
 
   // Add task
   $("#addTaskBtn").addEventListener("click", () => {
-    populateForm({ id:"", title:"", description:"", list: meta.lists[0] || "", dueDate: todayISO(), tags:[], subtasks:[] });
+    populateForm({ id: "", title: "", description: "", list: meta.lists[0] || "", dueDate: todayISO(), tags: [], subtasks: [] });
     renderDetailsVisibility(true);
   });
 
@@ -280,7 +280,7 @@ function initEvents(){
   $("#searchInput").addEventListener("input", renderTaskList);
 
   // Add list
-  $("#addListBtn").addEventListener("click", ()=>{
+  $("#addListBtn").addEventListener("click", () => {
     const name = prompt("New list name?");
     if (!name) return;
     if (!meta.lists.includes(name)) meta.lists.push(name);
@@ -288,7 +288,7 @@ function initEvents(){
   });
 
   // Add tag
-  $("#addTagBtn").addEventListener("click", ()=>{
+  $("#addTagBtn").addEventListener("click", () => {
     const name = prompt("New tag name?");
     if (!name) return;
     if (!meta.tags.includes(name)) meta.tags.push(name);
@@ -302,15 +302,15 @@ function initEvents(){
     const id = $("#taskId").value;
     let target = null;
     if (id) target = tasks.find(x => x.id === id);
-    if (target){
-      const s = { id: uid(), text, completed:false };
+    if (target) {
+      const s = { id: uid(), text, completed: false };
       target.subtasks.push(s);
       $("#subtasksContainer").appendChild(subtaskRow(s));
       $("#newSubtaskInput").value = "";
       save(); render();
     } else {
       // Not yet saved -> attach to DOM only; will be collected on save
-      const s = { id: uid(), text, completed:false };
+      const s = { id: uid(), text, completed: false };
       $("#subtasksContainer").appendChild(subtaskRow(s));
       $("#newSubtaskInput").value = "";
     }
@@ -352,7 +352,7 @@ function initEvents(){
   });
 }
 
-function main(){
+function main() {
   load();
   render();
   initEvents();

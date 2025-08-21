@@ -48,8 +48,6 @@ body {
 .details {
 	background: var(--section);
 	border-radius: 16px;
-	/* border: 1px solid var(--border); */
-	/* box-shadow: var(--shadow); */
 }
 .sidebar {
 	display: flex;
@@ -61,7 +59,6 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	/* margin-bottom: 12px; */
 }
 .menu {
 	font-size: large;
@@ -89,19 +86,17 @@ body {
 	color: var(--muted);
 	font-size: 12px;
 	z-index: 1;
-	/* pointer-events: stroke; */
-	/* cursor: pointer; */
 }
 #search-input:focus {
 	transform: translateY(-1px);
 	background-color: var(--section-hover);
 	outline: none;
-	/* box-shadow: 0 0 0 2px var(--brand); */
 }
 
-.nav-section1 {
+.nav-section {
 	margin-top: 18px;
 }
+
 .section-title {
 	font-size: 10px;
 	font-weight: bold;
@@ -110,6 +105,7 @@ body {
 	letter-spacing: 0.06em;
 	color: var(--text);
 }
+
 .nav-item {
 	width: 100%;
 	display: flex;
@@ -122,8 +118,6 @@ body {
 	cursor: pointer;
 	transition: 0.2s ease;
 	border-radius: 12px;
-	/* border: 1px solid var(--border); */
-	/* background: #fff; */
 }
 .nav-item:hover {
 	transform: translateY(-1px);
@@ -140,7 +134,7 @@ body {
 .badge {
 	font-size: 12px;
 	background: #f3f4f6;
-	/* border: 1px solid var(--border); */
+
 	padding: 2px 8px;
 	border-radius: 999px;
 }
@@ -153,14 +147,12 @@ body {
 .chips {
 	display: flex;
 	flex-direction: column;
-	/* flex-wrap: wrap; */
 	gap: 8px;
 	margin-top: 8px;
 }
 .chip {
 	padding: 6px 10px;
 	border-radius: 999px;
-	/* border: 1px solid var(--border); */
 	background: #fafafa;
 	font-size: 12px;
 	cursor: pointer;
@@ -176,16 +168,19 @@ body {
 	gap: 6px;
 }
 .link {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 8px;
 	background: none;
 	border: none;
-	text-align: left;
 	padding: 8px;
-	border-radius: 10px;
 	cursor: pointer;
 	color: var(--muted);
 }
 .link:hover {
-	background: #f9fafb;
+	background: #fdfdfd;
+	border-radius: 12px;
 }
 
 /* Main */
