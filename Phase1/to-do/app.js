@@ -92,7 +92,8 @@ function renderTaskList() {
     "sticky": "Sticky Wall",
     "list": activeFilter.value || "List",
     "tag": `#${activeFilter.value}`
-  }[activeFilter.type] || "Tasks";
+  }
+  [activeFilter.type] || "Tasks";
   $("#viewTitle").textContent = viewTitle;
 
   if (activeFilter.type === "calendar") {
@@ -158,7 +159,7 @@ function taskRow(task) {
 }
 
 function getFilteredTasks() {
-  const q = $("#searchInput").value?.toLowerCase() || "";
+  const q = $("#search-input").value?.toLowerCase() || "";
   let arr = tasks.filter(t => t.title.toLowerCase().includes(q) || t.description.toLowerCase().includes(q));
   switch (activeFilter.type) {
     case "today-only":

@@ -82,7 +82,9 @@
         <button class="link">
           <i class="fa-solid fa-sliders"></i>
           <span>Settings</span></button>
-        <button class="link"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Sign out</span></button>
+        <button class="link">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Sign out</span></button>
       </div>
     </aside>
 
@@ -104,42 +106,43 @@
     <!-- Details Panel (Right) -->
     <section class="details" id="detailsPanel" aria-hidden="true">
       <header class="details-header">
-        <div class="details-title">Task:</div>
-        <button id="closeDetails" class="icon-btn" aria-label="Close">&times;</button>
+        <div class="details-title">Task</div>
+        <button id="closeDetails" class="icon-btn" aria-label="Close"><i
+            class="fa-solid fa-xmark close-icon"></i></button>
       </header>
 
       <form id="taskForm" class="details-body">
         <input type="hidden" id="taskId" />
 
         <label class="field">
-          <div class="label">Title</div>
+          <div class="label section-title">Title</div>
           <input id="title" type="text" placeholder="Task title" required />
         </label>
 
         <label class="field">
-          <div class="label">Description</div>
+          <div class="label section-title">Description</div>
           <textarea id="description" rows="3" placeholder="Description"></textarea>
         </label>
 
         <div class="grid-2">
           <label class="field">
-            <div class="label">List</div>
+            <div class="label section-title">List</div>
             <select id="listSelect"></select>
           </label>
 
           <label class="field">
-            <div class="label">Due date</div>
+            <div class="label section-title">Due date</div>
             <input id="dueDate" type="date" />
           </label>
         </div>
 
         <label class="field">
-          <div class="label">Tags</div>
+          <div class="label section-title">Tags</div>
           <div id="tagsPicker" class="tag-picker"></div>
         </label>
 
         <div class="subtasks">
-          <div class="subtasks-title">Subtasks:</div>
+          <div class="subtasks-title section-title">Subtasks:</div>
           <div id="subtasksContainer"></div>
           <div class="subtasks-add">
             <input id="newSubtaskInput" type="text" placeholder="Add new subtask" />
