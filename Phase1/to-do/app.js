@@ -239,7 +239,8 @@ function subtaskRow(sub) {
   row.innerHTML = `
     <input type="checkbox" ${sub.completed ? "checked" : ""}>
     <input type="text" value="${sub.text}" placeholder="Subtask">
-    <button class="icon-btn" title="Remove">&times;</button>
+    <button class="icon-btn" title="Remove">
+    <i class="fa-solid fa-xmark close-icon"></i></button>
   `;
   $("input[type='checkbox']", row).addEventListener("change", e => sub.completed = e.target.checked);
   $("input[type='text']", row).addEventListener("input", e => sub.text = e.target.value);
@@ -278,7 +279,7 @@ function initEvents() {
   $("#closeDetails").addEventListener("click", () => renderDetailsVisibility(false));
 
   // Search
-  $("#searchInput").addEventListener("input", renderTaskList);
+  $("#search-input").addEventListener("input", renderTaskList);
 
   // Add list
   $("#addListBtn").addEventListener("click", () => {
@@ -342,7 +343,8 @@ function initEvents() {
     }));
 
     const existing = tasks.find(t => t.id === id);
-    const payload = { id, title, description, list, dueDate, tags, subtasks, completed: existing?.completed || false, sticky: existing?.sticky || false };
+    const payload =
+      { id, title, description, list, dueDate, tags, subtasks, completed: existing?.completed || false, sticky: existing?.sticky || false };
 
     if (existing) {
       Object.assign(existing, payload);
