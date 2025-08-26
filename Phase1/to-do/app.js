@@ -8,7 +8,11 @@ const STORAGE_KEY = "todo_pro_tasks_v1";
 const STORAGE_META = "todo_pro_meta_v1"; // lists & tags
 
 let tasks = [];
-let meta = { lists: ["Personal", "Work"], tags: ["Tag 1", "Tag 2", "Tag 3"] };
+let meta = {
+  lists: ["Personal", "Work"],
+  listColor: ["#ff676a", "#6ad7e3"],
+  tags: ["Tag 1", "Tag 2", "Tag 3"]
+};
 let activeFilter = { type: "today-only", value: null }; // default view
 
 // ----- Utilities -----
@@ -17,6 +21,7 @@ const todayISO = () => new Date().toISOString().slice(0, 10);
 const inFuture = (date) => new Date(date) > new Date(todayISO());
 const isToday = (date) => date === todayISO();
 const fmt = (d) => new Date(d).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' });
+
 
 function load() {
   tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
@@ -31,6 +36,7 @@ function load() {
       { id: uid(), title: "Print business card", description: "", list: "Work", dueDate: "2025-12-31", tags: ["Tag 3"], subtasks: [], completed: false, sticky: false },
     ];
     save();
+
   }
 }
 
@@ -38,8 +44,9 @@ function save() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   localStorage.setItem(STORAGE_META, JSON.stringify(meta));
 }
-
 // ----- Rendering -----
+
+
 function render() {
   renderSidebar();
   renderTaskList();
@@ -56,11 +63,16 @@ function renderSidebar() {
   // lists
   const listsContainer = $("#listsContainer");
   listsContainer.innerHTML = "";
-  meta.lists.forEach(list => {
+  console.log("Meta object is:", meta);
+  console.log("List colors are:", meta.listColor);
+  meta.lists.forEach((list, idx) => {
     const count = tasks.filter(t => t.list === list && !t.completed).length;
     const chip = document.createElement("div");
     chip.className = "chip";
     chip.textContent = `${list} (${count})`;
+    if (meta.listColor && meta.listColor[idx]) {
+      chip.style.background = meta.listColor[idx];
+    }
     chip.addEventListener("click", () => setFilter({ type: "list", value: list }));
     listsContainer.appendChild(chip);
   });
@@ -279,12 +291,13 @@ function initEvents() {
   $("#closeDetails").addEventListener("click", () => renderDetailsVisibility(false));
 
   // Search
-  $("#search-input").addEventListener("input", renderTaskList);
+  $("#search-input").addEventListener("input", renderTaskList());
 
   // Add list
   $("#addListBtn").addEventListener("click", () => {
     const name = prompt("New list name?");
     if (!name) return;
+
     if (!meta.lists.includes(name)) meta.lists.push(name);
     save(); render();
   });
@@ -362,3 +375,4 @@ function main() {
 }
 
 document.addEventListener("DOMContentLoaded", main);
+
