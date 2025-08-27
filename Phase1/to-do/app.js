@@ -22,7 +22,7 @@ const inFuture = (date) => new Date(date) > new Date(todayISO());
 const isToday = (date) => date === todayISO();
 const fmt = (d) => new Date(d).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' });
 
-
+save();
 function load() {
   tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
   const savedMeta = JSON.parse(localStorage.getItem(STORAGE_META) || "null");
@@ -63,16 +63,34 @@ function renderSidebar() {
   // lists
   const listsContainer = $("#listsContainer");
   listsContainer.innerHTML = "";
-  console.log("Meta object is:", meta);
-  console.log("List colors are:", meta.listColor);
+
   meta.lists.forEach((list, idx) => {
     const count = tasks.filter(t => t.list === list && !t.completed).length;
+
     const chip = document.createElement("div");
     chip.className = "chip";
-    chip.textContent = `${list} (${count})`;
-    if (meta.listColor && meta.listColor[idx]) {
-      chip.style.background = meta.listColor[idx];
-    }
+
+    const clr = document.createElement("span");
+    clr.className = "chip-color";
+    clr.style.background = meta.listColor[idx];
+
+    const listCount = document.createElement("div");
+    listCount.className = "nav-item-text";
+
+    const listName = document.createElement("span");
+    const listNum = document.createElement("span");
+
+    listName.textContent = list;
+    listNum.textContent = `(${count})`;
+
+    listCount.appendChild(listName);
+    listCount.appendChild(listNum);
+    chip.appendChild(clr);
+    chip.appendChild(listCount);
+    listsContainer.appendChild(chip);
+
+
+    // listsContainer.appendChild(count);
     chip.addEventListener("click", () => setFilter({ type: "list", value: list }));
     listsContainer.appendChild(chip);
   });
